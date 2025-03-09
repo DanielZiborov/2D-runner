@@ -13,7 +13,7 @@ class MainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              onPressed: (){context.go("/play");},
+              onPressed: (){context.push("/play");},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan),
                 foregroundColor: WidgetStateProperty.all(Colors.white),
@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {context.push("/game_over");},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan),
                 foregroundColor: WidgetStateProperty.all(Colors.white),

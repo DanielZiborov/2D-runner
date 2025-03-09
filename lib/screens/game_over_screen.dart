@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({super.key});
@@ -28,7 +29,9 @@ class GameOverScreen extends StatelessWidget {
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pop();
+              },
               color: Colors.red,
               style: const ButtonStyle(
                 textStyle: WidgetStatePropertyAll(
