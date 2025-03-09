@@ -1,3 +1,4 @@
+import 'package:flutter_2d_runner/screens/game_over_screen.dart';
 import 'package:flutter_2d_runner/screens/game_screen.dart';
 import 'package:flutter_2d_runner/screens/main_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,10 @@ final router = GoRouter(
     GoRoute(
       path: '/play',
       builder: (context, state) => const GameScreen(),
+    ),
+    GoRoute(
+      path: '/game_over',
+      builder: (context, state) => const GameOverScreen(),
     ),
   ],
 );

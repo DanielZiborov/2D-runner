@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -12,7 +13,7 @@ class MainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-              onPressed: () {},
+              onPressed: (){context.go("/play");},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan),
                 foregroundColor: WidgetStateProperty.all(Colors.white),
