@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter_2d_runner/background.dart';
-import 'package:flutter_2d_runner/ground.dart';
+import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/obstacle_spawner.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 
@@ -23,6 +23,7 @@ class MyGame extends FlameGame {
       'Rock3.png',
       'tree1.png',
       'tree2.png',
+      'star.png',
     ]);
 
     camera.viewfinder.anchor = Anchor.topLeft;
