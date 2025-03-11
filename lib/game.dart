@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/background.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_2d_runner/actors/ostrich.dart';
 
 class MyGame extends FlameGame {
   late Ostrich _ostrich;
+  late double lastBlockXPosition = 0.0;
+  late UniqueKey lastBlockKey;
   double objectSpeed = 0.0;
 
   @override
@@ -47,13 +50,33 @@ class MyGame extends FlameGame {
     for (final block in segments[segmentIndex]) {
       switch (block.blockType) {
         case Ground:
+          world.add(
+            Ground(
+              gridPosition: block.gridPosition,
+              xOffset: xPositionOffset,
+            ),
+          );
         case PlatformBlock:
-          add(PlatformBlock(
-            gridPosition: block.gridPosition,
-            xOffset: xPositionOffset,
-          ));
+          world.add(
+            PlatformBlock(
+              gridPosition: block.gridPosition,
+              xOffset: xPositionOffset,
+            ),
+          );
         case Star:
+          world.add(
+            Star(
+              gridPosition: block.gridPosition,
+              xOffset: xPositionOffset,
+            ),
+          );
         case Falcon:
+          world.add(
+            Falcon(
+              gridPosition: block.gridPosition,
+              xOffset: xPositionOffset,
+            ),
+          );
       }
     }
   }

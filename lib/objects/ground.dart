@@ -1,49 +1,57 @@
+import 'dart:math';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/game.dart';
+import '../managers/segment_manager.dart';
 
-class Ground extends PositionComponent with HasGameRef {
-  late SpriteComponent ground1;
-  late SpriteComponent ground2;
+class Ground extends SpriteComponent with HasGameReference<MyGame> {
+  final Vector2 gridPosition;
+  double xOffset;
+
+  final UniqueKey _blockKey = UniqueKey();
+  final Vector2 velocity = Vector2.zero();
+
+  Ground({
+    required this.gridPosition,
+    required this.xOffset,
+  }) : super(size: Vector2.all(64), anchor: Anchor.bottomLeft);
 
   @override
-  Future<void> onLoad() async {
-    final sprite = await gameRef.loadSprite('Ground.png');
-
-    // Первая часть земли
-    ground1 = SpriteComponent(
-      sprite: sprite,
-      size: Vector2(gameRef.size.x, 50), 
-      position: Vector2(0, gameRef.size.y - 50),
+  void onLoad() {
+    final groundImage = game.images.fromCache('Ground.png');
+    sprite = Sprite(groundImage);
+    position = Vector2(
+      gridPosition.x * size.x + xOffset,
+      game.size.y - gridPosition.y * size.y,
     );
-
-    // Вторая часть земли (идёт сразу за первой)
-    ground2 = SpriteComponent(
-      sprite: sprite,
-      size: Vector2(gameRef.size.x, 50),
-      position: Vector2(gameRef.size.x, gameRef.size.y - 50),
-    );
-
-    add(ground1);
-    add(ground2);
+    add(RectangleHitbox(collisionType: CollisionType.passive));
+    if (gridPosition.x == 9 && position.x > game.lastBlockXPosition) {
+      game.lastBlockKey = _blockKey;
+      game.lastBlockXPosition = position.x + size.x;
+    }
   }
 
   @override
   void update(double dt) {
+    velocity.x = game.objectSpeed;
+    position += velocity * dt;
+
+    if (position.x < -size.x) {
+      removeFromParent();
+      if (gridPosition.x == 0) {
+        game.loadGameSegments(
+          Random().nextInt(segments.length),
+          game.lastBlockXPosition,
+        );
+      }
+    }
+    if (gridPosition.x == 9) {
+      if (game.lastBlockKey == _blockKey) {
+        game.lastBlockXPosition = position.x + size.x - 10;
+      }
+    }
+
     super.update(dt);
-
-    double speed = 100; // Скорость движения земли
-
-    // Двигаем обе части влево
-    ground1.position.x -= speed * dt;
-    ground2.position.x -= speed * dt;
-
-    // Если первая часть ушла за экран, переносим её вправо
-    if (ground1.position.x < -gameRef.size.x) {
-      ground1.position.x = ground2.position.x + gameRef.size.x;
-    }
-
-    // Если вторая часть ушла за экран, переносим её вправо
-    if (ground2.position.x < -gameRef.size.x) {
-      ground2.position.x = ground1.position.x + gameRef.size.x;
-    }
   }
 }
