@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
@@ -9,7 +10,8 @@ import 'package:flutter_2d_runner/objects/platform_block.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 
-class MyGame extends FlameGame {
+class MyGame extends FlameGame
+    with HasCollisionDetection, HasKeyboardHandlerComponents {
   late Ostrich _ostrich;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
@@ -90,7 +92,7 @@ class MyGame extends FlameGame {
     }
 
     _ostrich = Ostrich(
-      position: Vector2(128, canvasSize.y - 70),
+      position: Vector2(128, canvasSize.y - 128),
     );
     world.add(_ostrich);
   }
