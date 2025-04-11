@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/game.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
-import 'package:flutter_2d_runner/objects/platform_block.dart';
+import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
 
 class Ostrich extends SpriteAnimationComponent
@@ -36,7 +36,7 @@ class Ostrich extends SpriteAnimationComponent
       SpriteAnimationData.sequenced(
         amount: 4,
         textureSize: Vector2.all(32),
-        stepTime: 0.15,
+        stepTime: 0.3,
       ),
     );
     add(CircleHitbox());
@@ -102,7 +102,7 @@ class Ostrich extends SpriteAnimationComponent
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    if (other is Ground || other is PlatformBlock) {
+    if (other is Ground) {
       if (intersectionPoints.length == 2) {
         final mid = (intersectionPoints.elementAt(0) +
                 intersectionPoints.elementAt(1)) /
@@ -124,7 +124,7 @@ class Ostrich extends SpriteAnimationComponent
       other.removeFromParent();
     }
 
-    if (other is Falcon) {
+    if (other is Falcon || other is Rock) {
       hit();
     }
 

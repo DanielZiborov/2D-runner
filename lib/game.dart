@@ -6,7 +6,7 @@ import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/background.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
-import 'package:flutter_2d_runner/objects/platform_block.dart';
+import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 
@@ -41,44 +41,38 @@ class MyGame extends FlameGame
     add(Background());
 
     initializeGame();
-
-    // Добавляем компоненты
-    // add(Background());
-    // add(Ground());
-    // add(ObstacleSpawner());
   }
 
-  void loadGameSegments(int segmentIndex, double xPositionOffset) {
+  void loadGameSegments(int segmentIndex, double xOffset) {
+    // Автоматическая генерация земли
+    for (int x = 0; x < 10; x++) {
+      world.add(Ground(
+        gridPosition: Vector2(x.toDouble(), 0),
+        xOffset: xOffset,
+      ));
+    }
+
+    // Добавляем остальные объекты
     for (final block in segments[segmentIndex]) {
       switch (block.blockType) {
-        case Ground:
-          world.add(
-            Ground(
-              gridPosition: block.gridPosition,
-              xOffset: xPositionOffset,
-            ),
-          );
-        case PlatformBlock:
-          world.add(
-            PlatformBlock(
-              gridPosition: block.gridPosition,
-              xOffset: xPositionOffset,
-            ),
-          );
+        case Rock:
+          world.add(Rock(
+            gridPosition: block.gridPosition,
+            xOffset: xOffset,
+          ));
+          break;
         case Star:
-          world.add(
-            Star(
-              gridPosition: block.gridPosition,
-              xOffset: xPositionOffset,
-            ),
-          );
+          world.add(Star(
+            gridPosition: block.gridPosition,
+            xOffset: xOffset,
+          ));
+          break;
         case Falcon:
-          world.add(
-            Falcon(
-              gridPosition: block.gridPosition,
-              xOffset: xPositionOffset,
-            ),
-          );
+          world.add(Falcon(
+            gridPosition: block.gridPosition,
+            xOffset: xOffset,
+          ));
+          break;
       }
     }
   }

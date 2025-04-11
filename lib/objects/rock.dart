@@ -15,7 +15,7 @@ class Rock extends SpriteComponent with HasGameReference<MyGame> {
   @override
   void onLoad() {
     final rockImage =
-        game.images.fromCache('Rock1.png'); // или другой файл, если надо
+        game.images.fromCache('Rock1.png'); 
     sprite = Sprite(rockImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset,
