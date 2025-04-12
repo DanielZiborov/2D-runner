@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/widgets/menu_button.dart';
 import 'package:go_router/go_router.dart';
 
 class MainScreen extends StatelessWidget {
@@ -12,38 +13,29 @@ class MainScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ElevatedButton(
-              onPressed: (){context.push("/play");},
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.cyan),
-                foregroundColor: WidgetStateProperty.all(Colors.white),
-              ),
-              child: const Text("Play"),
+            MenuButton(
+              onPressed: () {
+                context.push("/play");
+              },
+              title: "Play",
             ),
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-              onPressed: () {context.push("/game_over");},
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.cyan),
-                foregroundColor: WidgetStateProperty.all(Colors.white),
-              ),
-              child: const Text("Options"),
+            MenuButton(
+              onPressed: () {
+                context.push("/game_over");
+              },
+              title: "Options",
             ),
             const SizedBox(
               height: 10,
             ),
-            ElevatedButton(
-              onPressed: () {context.push("/game_record");},
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.cyan),
-                foregroundColor: WidgetStateProperty.all(Colors.white),
-              ),
-              child: const Text("Record"),
-            ),
-            const SizedBox(
-              height: 10,
+            MenuButton(
+              onPressed: () {
+                context.push("/game_record");
+              },
+              title: "Record",
             ),
           ],
         ),
