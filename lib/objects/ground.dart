@@ -52,6 +52,8 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
     // Обновляем последний блок
     if (gridPosition.x == 9) {
       if (game.lastBlockKey == _blockKey) {
+        print("последний блок:");
+        print("${position.x + size.x - 10}");
         game.lastBlockXPosition = position.x + size.x - 10;
       }
     }

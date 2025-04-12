@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 import 'package:flutter_2d_runner/background.dart';
+import 'package:flutter_2d_runner/indicators/hud.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
@@ -15,6 +16,9 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
   double objectSpeed = 200;
+
+  int starsCollected = 0;
+  int health = 3;
 
   @override
   Future<void> onLoad() async {
@@ -33,6 +37,8 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
       'tree2.png',
       'star.png',
       'block.png',
+      'heart.png',
+      'heart_half.png'
     ]);
 
     camera.viewfinder.anchor = Anchor.topLeft;
@@ -49,6 +55,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
         gridPosition: Vector2(x.toDouble(), 0),
         xOffset: xOffset,
       ));
+      print("Земля по счёту: $x");
     }
 
     // Добавляем остальные объекты
@@ -77,10 +84,13 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   }
 
   void initializeGame() {
-    final segmentsToLoad = (size.x / 640).ceil();
-    segmentsToLoad.clamp(0, segments.length);
+    var segmentsToLoad = (size.x / 640).ceil();
+    print("Количество сегментов: $segmentsToLoad");
+    segmentsToLoad = segmentsToLoad.clamp(0, segments.length);
+    print("Количество сегментов: $segmentsToLoad");
 
     for (var i = 0; i <= segmentsToLoad; i++) {
+      print("Сегмент сейчас: $i");
       loadGameSegments(i, (640 * i).toDouble());
     }
 
@@ -88,6 +98,8 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
       position: Vector2(128, canvasSize.y - 128),
     );
     world.add(_ostrich);
+
+    camera.viewport.add(Hud());
   }
 
   // Обработка касания экрана

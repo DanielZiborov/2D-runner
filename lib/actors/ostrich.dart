@@ -93,6 +93,7 @@ class Ostrich extends SpriteAnimationComponent
 
     if (other is Star) {
       other.removeFromParent();
+      game.starsCollected++;
     }
 
     if (other is Falcon || other is Rock) {
@@ -104,6 +105,7 @@ class Ostrich extends SpriteAnimationComponent
 
   void hit() {
     if (!hitByEnemy) {
+      game.health--;
       hitByEnemy = true;
     }
     add(
