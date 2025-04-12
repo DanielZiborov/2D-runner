@@ -6,6 +6,7 @@ import 'package:flutter_2d_runner/game.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
+import 'package:go_router/go_router.dart';
 
 class Ostrich extends SpriteAnimationComponent
     with CollisionCallbacks, HasGameReference<MyGame> {
@@ -107,6 +108,11 @@ class Ostrich extends SpriteAnimationComponent
     if (!hitByEnemy) {
       game.health--;
       hitByEnemy = true;
+      if (game.health <= 0) {
+        Future.microtask(() {
+          game.context.go('/game_over');
+        });
+      }
     }
     add(
       OpacityEffect.fadeOut(

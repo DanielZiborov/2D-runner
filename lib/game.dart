@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 import 'package:flutter_2d_runner/background.dart';
@@ -12,6 +12,10 @@ import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
 
 class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
+
+  final BuildContext context;
+  MyGame(this.context);
+
   late Ostrich _ostrich;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;

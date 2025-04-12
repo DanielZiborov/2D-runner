@@ -41,12 +41,17 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
       ),
     );
 
+    const heartOffsetX = 40; // Отступ между сердцами (расстояние между ними)
+    final heartStartX = game.size.x - 120 - heartOffsetX; // Начальная позиция для сердец
+
     for (var i = 1; i <= game.health; i++) {
-      final positionX = 40 * i;
+
+      final positionX = heartStartX - (i - 1) * heartOffsetX;
+
       await add(
         HeartHealthComponent(
           heartNumber: i,
-          position: Vector2(positionX.toDouble(), 20),
+          position: Vector2(positionX.toDouble(), 10),
           size: Vector2.all(32),
         ),
       );

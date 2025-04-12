@@ -30,7 +30,7 @@ class GameOverScreen extends StatelessWidget {
             ),
             IconButton(
               onPressed: () {
-                context.pop();
+                context.go('/');
               },
               color: Colors.red,
               style: const ButtonStyle(
