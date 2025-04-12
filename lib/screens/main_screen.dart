@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
               height: 10,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {context.push("/game_record");},
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.cyan),
                 foregroundColor: WidgetStateProperty.all(Colors.white),
@@ -44,14 +44,6 @@ class MainScreen extends StatelessWidget {
             ),
             const SizedBox(
               height: 10,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.cyan),
-                foregroundColor: WidgetStateProperty.all(Colors.white),
-              ),
-              child: const Text("Statistics"),
             ),
           ],
         ),

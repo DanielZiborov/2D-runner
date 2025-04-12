@@ -10,7 +10,7 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
   double xOffset;
 
   final UniqueKey _blockKey = UniqueKey();
-  final Vector2 velocity = Vector2.zero(); // Земля не будет двигаться.
+  final Vector2 velocity = Vector2.zero(); 
 
   Ground({
     required this.gridPosition,

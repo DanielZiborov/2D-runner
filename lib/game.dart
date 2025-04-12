@@ -3,15 +3,14 @@ import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
+import 'package:flutter_2d_runner/actors/ostrich.dart';
 import 'package:flutter_2d_runner/background.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
-import 'package:flutter_2d_runner/actors/ostrich.dart';
 
-class MyGame extends FlameGame
-    with HasCollisionDetection, HasKeyboardHandlerComponents {
+class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   late Ostrich _ostrich;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
@@ -89,5 +88,13 @@ class MyGame extends FlameGame
       position: Vector2(128, canvasSize.y - 128),
     );
     world.add(_ostrich);
+  }
+
+  // Обработка касания экрана
+  @override
+  void onTap() {
+    // TODO: implement onTap
+    super.onTap();
+    _ostrich.onTap();
   }
 }

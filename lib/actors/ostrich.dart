@@ -1,7 +1,6 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/game.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
@@ -9,7 +8,7 @@ import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/star.dart';
 
 class Ostrich extends SpriteAnimationComponent
-    with KeyboardHandler, CollisionCallbacks, HasGameReference<MyGame> {
+    with CollisionCallbacks, HasGameReference<MyGame> {
   bool hitByEnemy = false;
 
   int horizontalDirection = 0;
@@ -42,24 +41,16 @@ class Ostrich extends SpriteAnimationComponent
     add(CircleHitbox());
   }
 
-  @override
-  bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    // Мы больше не управляем горизонтальным движением с помощью стрелок.
-    // Вместо этого позволяем только прыгать.
-    horizontalDirection = 0;
-
-    // Прыжок по-прежнему работает, если нажата клавиша "Space"
-    hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
-
-    return true;
+  // Этот метод будет вызываться при касании экрана
+  void onTap() {
+    hasJumped = true;
   }
 
   @override
   void update(double dt) {
-    // Персонаж не двигается по оси X, поэтому скорость по X остаётся 0
-    velocity.x = 0;
+    velocity.x = 0; // Персонаж не двигается по оси X
 
-    // Для вертикального движения применяем гравитацию
+    // Применяем гравитацию
     velocity.y += gravity;
 
     // Логика прыжка
@@ -74,15 +65,8 @@ class Ostrich extends SpriteAnimationComponent
     // Ограничиваем скорость падения (терминальная скорость)
     velocity.y = velocity.y.clamp(-jumpSpeed, terminalVelocity);
 
-    // Применяем скорость по Y (т.е. вертикальное движение)
+    // Применяем скорость по Y
     position += velocity * dt;
-
-    // Логика для переворота персонажа (если он должен смотреть в другую сторону)
-    if (horizontalDirection < 0 && scale.x > 0) {
-      flipHorizontally();
-    } else if (horizontalDirection > 0 && scale.x < 0) {
-      flipHorizontally();
-    }
 
     super.update(dt);
   }
@@ -91,7 +75,9 @@ class Ostrich extends SpriteAnimationComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Ground) {
       if (intersectionPoints.length == 2) {
-        final mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
+        final mid = (intersectionPoints.elementAt(0) +
+                intersectionPoints.elementAt(1)) /
+            2;
 
         final collisionNormal = absoluteCenter - mid;
         final separationDistance = (size.x / 2) - collisionNormal.length;
