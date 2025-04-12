@@ -3,8 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter_2d_runner/game.dart';
 
-class Falcon extends SpriteAnimationComponent
-    with HasGameReference<MyGame> {
+class Falcon extends SpriteAnimationComponent with HasGameReference<MyGame> {
   final Vector2 gridPosition;
   double xOffset;
 
@@ -44,7 +43,7 @@ class Falcon extends SpriteAnimationComponent
 
   @override
   void update(double dt) {
-    velocity.x = game.objectSpeed;
+    velocity.x = -game.objectSpeed;  // Фалкон двигается влево
     position += velocity * dt;
     if (position.x < -size.x) removeFromParent();
     super.update(dt);

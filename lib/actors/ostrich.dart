@@ -16,8 +16,8 @@ class Ostrich extends SpriteAnimationComponent
   final velocity = Vector2.zero();
   final moveSpeed = 200.0;
 
-  final double gravity = 40;
-  final double jumpSpeed = 600;
+  final double gravity = 45;
+  final double jumpSpeed = 1000;
   final double terminalVelocity = 150;
 
   bool hasJumped = false;
@@ -36,7 +36,7 @@ class Ostrich extends SpriteAnimationComponent
       SpriteAnimationData.sequenced(
         amount: 4,
         textureSize: Vector2.all(32),
-        stepTime: 0.3,
+        stepTime: 0.15,
       ),
     );
     add(CircleHitbox());
@@ -44,16 +44,11 @@ class Ostrich extends SpriteAnimationComponent
 
   @override
   bool onKeyEvent(KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
+    // Мы больше не управляем горизонтальным движением с помощью стрелок.
+    // Вместо этого позволяем только прыгать.
     horizontalDirection = 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyA) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowLeft))
-        ? -1
-        : 0;
-    horizontalDirection += (keysPressed.contains(LogicalKeyboardKey.keyD) ||
-            keysPressed.contains(LogicalKeyboardKey.arrowRight))
-        ? 1
-        : 0;
 
+    // Прыжок по-прежнему работает, если нажата клавиша "Space"
     hasJumped = keysPressed.contains(LogicalKeyboardKey.space);
 
     return true;
@@ -61,18 +56,13 @@ class Ostrich extends SpriteAnimationComponent
 
   @override
   void update(double dt) {
-    velocity.x = horizontalDirection * moveSpeed;
-    position += velocity * dt;
-    super.update(dt);
-    if (horizontalDirection < 0 && scale.x > 0) {
-      flipHorizontally();
-    } else if (horizontalDirection > 0 && scale.x < 0) {
-      flipHorizontally();
-    }
-    // Apply basic gravity
+    // Персонаж не двигается по оси X, поэтому скорость по X остаётся 0
+    velocity.x = 0;
+
+    // Для вертикального движения применяем гравитацию
     velocity.y += gravity;
 
-    // Determine if ember has jumped
+    // Логика прыжка
     if (hasJumped) {
       if (isOnGround) {
         velocity.y = -jumpSpeed;
@@ -81,22 +71,19 @@ class Ostrich extends SpriteAnimationComponent
       hasJumped = false;
     }
 
-    // Prevent ember from jumping to crazy fast as well as descending too fast and
-    // crashing through the ground or a platform.
+    // Ограничиваем скорость падения (терминальная скорость)
     velocity.y = velocity.y.clamp(-jumpSpeed, terminalVelocity);
 
-    game.objectSpeed = 0;
-    // Prevent ember from going backwards at screen edge.
-    if (position.x - 36 <= 0 && horizontalDirection < 0) {
-      velocity.x = 0;
-    }
-    // Prevent ember from going beyond half screen.
-    if (position.x + 64 >= game.size.x / 2 && horizontalDirection > 0) {
-      velocity.x = 0;
-      game.objectSpeed = -moveSpeed;
+    // Применяем скорость по Y (т.е. вертикальное движение)
+    position += velocity * dt;
+
+    // Логика для переворота персонажа (если он должен смотреть в другую сторону)
+    if (horizontalDirection < 0 && scale.x > 0) {
+      flipHorizontally();
+    } else if (horizontalDirection > 0 && scale.x < 0) {
+      flipHorizontally();
     }
 
-    position += velocity * dt;
     super.update(dt);
   }
 
@@ -104,9 +91,7 @@ class Ostrich extends SpriteAnimationComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Ground) {
       if (intersectionPoints.length == 2) {
-        final mid = (intersectionPoints.elementAt(0) +
-                intersectionPoints.elementAt(1)) /
-            2;
+        final mid = (intersectionPoints.elementAt(0) + intersectionPoints.elementAt(1)) / 2;
 
         final collisionNormal = absoluteCenter - mid;
         final separationDistance = (size.x / 2) - collisionNormal.length;

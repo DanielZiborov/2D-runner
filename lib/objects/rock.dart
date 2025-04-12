@@ -14,8 +14,7 @@ class Rock extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void onLoad() {
-    final rockImage =
-        game.images.fromCache('Rock1.png'); 
+    final rockImage = game.images.fromCache('Rock1.png'); 
     sprite = Sprite(rockImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset,
@@ -26,9 +25,14 @@ class Rock extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void update(double dt) {
-    velocity.x = game.objectSpeed;
+    velocity.x = -game.objectSpeed;  // Камень двигается влево
     position += velocity * dt;
-    if (position.x < -size.x) removeFromParent();
+
+    // Если объект выходит за экран, удаляем его
+    if (position.x < -size.x) {
+      removeFromParent();
+    }
     super.update(dt);
   }
 }
+

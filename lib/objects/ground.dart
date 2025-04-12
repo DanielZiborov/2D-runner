@@ -10,7 +10,7 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
   double xOffset;
 
   final UniqueKey _blockKey = UniqueKey();
-  final Vector2 velocity = Vector2.zero();
+  final Vector2 velocity = Vector2.zero(); // Земля не будет двигаться.
 
   Ground({
     required this.gridPosition,
@@ -34,9 +34,11 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void update(double dt) {
-    velocity.x = game.objectSpeed;
+    velocity.x = -game.objectSpeed; // Земля двигается вместе с объектами
+
     position += velocity * dt;
 
+    // Удаляем объекты, если они выходят за экран
     if (position.x < -size.x) {
       removeFromParent();
       if (gridPosition.x == 0) {
@@ -46,6 +48,8 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
         );
       }
     }
+
+    // Обновляем последний блок
     if (gridPosition.x == 9) {
       if (game.lastBlockKey == _blockKey) {
         game.lastBlockXPosition = position.x + size.x - 10;

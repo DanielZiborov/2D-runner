@@ -15,7 +15,7 @@ class MyGame extends FlameGame
   late Ostrich _ostrich;
   late double lastBlockXPosition = 0.0;
   late UniqueKey lastBlockKey;
-  double objectSpeed = 0.0;
+  double objectSpeed = 200;
 
   @override
   Future<void> onLoad() async {

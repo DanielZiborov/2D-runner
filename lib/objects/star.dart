@@ -4,8 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2d_runner/game.dart';
 
-class Star extends SpriteComponent
-    with HasGameReference<MyGame> {
+class Star extends SpriteComponent with HasGameReference<MyGame> {
   final Vector2 gridPosition;
   double xOffset;
 
@@ -40,7 +39,7 @@ class Star extends SpriteComponent
 
   @override
   void update(double dt) {
-    velocity.x = game.objectSpeed;
+    velocity.x = -game.objectSpeed;  // Звезда двигается влево
     position += velocity * dt;
     if (position.x < -size.x) removeFromParent();
     super.update(dt);
