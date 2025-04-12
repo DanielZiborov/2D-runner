@@ -19,7 +19,7 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
   @override
   Future<void> onLoad() async {
     _scoreTextComponent = TextComponent(
-      text: '${game.starsCollected}',
+      text: '${game.applesCollected}',
       textRenderer: TextPaint(
         style: const TextStyle(
           fontSize: 32,
@@ -31,12 +31,12 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
     );
     add(_scoreTextComponent);
 
-    final starSprite = await game.loadSprite('star.png');
+    final appleSprite = await game.loadSprite('apple.png');
     add(
       SpriteComponent(
-        sprite: starSprite,
+        sprite: appleSprite,
         position: Vector2(game.size.x - 100, 20),
-        size: Vector2.all(32),
+        size: Vector2.all(40),
         anchor: Anchor.center,
       ),
     );
@@ -60,6 +60,6 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
 
   @override
   void update(double dt) {
-    _scoreTextComponent.text = '${game.starsCollected}';
+    _scoreTextComponent.text = '${game.applesCollected}';
   }
 }

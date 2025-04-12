@@ -9,7 +9,7 @@ import 'package:flutter_2d_runner/indicators/hud.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
-import 'package:flutter_2d_runner/objects/star.dart';
+import 'package:flutter_2d_runner/objects/apple.dart';
 
 class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
@@ -21,7 +21,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   late UniqueKey lastBlockKey;
   double objectSpeed = 200;
 
-  int starsCollected = 0;
+  int applesCollected = 0;
   int health = 3;
 
   @override
@@ -42,7 +42,8 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
       'star.png',
       'block.png',
       'heart.png',
-      'heart_half.png'
+      'heart_half.png',
+      'apple.png'
     ]);
 
     camera.viewfinder.anchor = Anchor.topLeft;
@@ -71,8 +72,8 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
             xOffset: xOffset,
           ));
           break;
-        case Star:
-          world.add(Star(
+        case Apple:
+          world.add(Apple(
             gridPosition: block.gridPosition,
             xOffset: xOffset,
           ));

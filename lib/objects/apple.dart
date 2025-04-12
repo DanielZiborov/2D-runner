@@ -4,21 +4,21 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2d_runner/game.dart';
 
-class Star extends SpriteComponent with HasGameReference<MyGame> {
+class Apple extends SpriteComponent with HasGameReference<MyGame> {
   final Vector2 gridPosition;
   double xOffset;
 
   final Vector2 velocity = Vector2.zero();
 
-  Star({
+  Apple({
     required this.gridPosition,
     required this.xOffset,
   }) : super(size: Vector2.all(64), anchor: Anchor.center);
 
   @override
   void onLoad() {
-    final starImage = game.images.fromCache('star.png');
-    sprite = Sprite(starImage);
+    final appleImage = game.images.fromCache('apple.png');
+    sprite = Sprite(appleImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset + (size.x / 2),
       game.size.y - (gridPosition.y * size.y) - (size.y / 2),

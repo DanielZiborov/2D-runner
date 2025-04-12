@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
-import 'package:flutter_2d_runner/objects/star.dart';
+import 'package:flutter_2d_runner/objects/apple.dart';
 
 class Block {
   final Vector2 gridPosition;
@@ -21,7 +21,7 @@ final segment0 = [
 ];
 
 final segment1 = [
-  Block(Vector2(3, 3), Star),
+  Block(Vector2(3, 3), Apple),
 ];
 
 final segment2 = [
@@ -31,5 +31,5 @@ final segment2 = [
 
 final segment3 = [
   Block(Vector2(5, 1), Falcon),
-  Block(Vector2(9, 2), Star),
+  Block(Vector2(9, 2), Apple),
 ];
