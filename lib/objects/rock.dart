@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 
 class Rock extends SpriteComponent with HasGameReference<MyGame> {
@@ -14,7 +15,7 @@ class Rock extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void onLoad() {
-    final rockImage = game.images.fromCache('Rock1.png'); 
+    final rockImage = game.images.fromCache(Images["Rock"]!); 
     sprite = Sprite(rockImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset,

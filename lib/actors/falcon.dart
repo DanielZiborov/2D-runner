@@ -1,6 +1,7 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 
 class Falcon extends SpriteAnimationComponent with HasGameReference<MyGame> {
@@ -17,7 +18,7 @@ class Falcon extends SpriteAnimationComponent with HasGameReference<MyGame> {
   @override
   void onLoad() {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('falconAnim.png'),
+      game.images.fromCache(Images["Falcon"]!),
       SpriteAnimationData.sequenced(
         amount: 4,
         textureSize: Vector2.all(32),

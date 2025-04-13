@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 import 'heart.dart';
 
@@ -31,7 +32,7 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
     );
     add(_scoreTextComponent);
 
-    final appleSprite = await game.loadSprite('apple.png');
+    final appleSprite = await game.loadSprite(Images["Apple"]!);
     add(
       SpriteComponent(
         sprite: appleSprite,

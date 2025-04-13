@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 import '../managers/segment_manager.dart';
 
@@ -19,7 +20,7 @@ class Ground extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void onLoad() {
-    final groundImage = game.images.fromCache('Ground.png');
+    final groundImage = game.images.fromCache(Images["Ground"]!);
     sprite = Sprite(groundImage);
     position = Vector2(
       gridPosition.x * size.x + xOffset,

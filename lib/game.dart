@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/actors/ostrich.dart';
 import 'package:flutter_2d_runner/background.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/indicators/hud.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
@@ -26,25 +27,9 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   @override
   Future<void> onLoad() async {
-    await images.loadAll([
-      'Backgrounds.png',
-      'falconAnim.png',
-      'Ground.png',
-      'OstrichDeath.png',
-      'OstrichDown.png',
-      'OstrichJump.png',
-      'OstrichRun.png',
-      'Rock1.png',
-      'Rock2.png',
-      'Rock3.png',
-      'tree1.png',
-      'tree2.png',
-      'star.png',
-      'block.png',
-      'heart.png',
-      'heart_half.png',
-      'apple.png'
-    ]);
+    final fileNames = Images.values.toList();
+
+    await images.loadAll(fileNames);
 
     camera.viewfinder.anchor = Anchor.topLeft;
 

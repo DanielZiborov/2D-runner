@@ -1,4 +1,5 @@
 import 'package:flame/components.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 
 enum HeartState {
@@ -24,12 +25,12 @@ class HeartHealthComponent extends SpriteGroupComponent<HeartState>
   Future<void> onLoad() async {
     await super.onLoad();
     final availableSprite = await game.loadSprite(
-      'heart.png',
+      Images["Heart"]!,
       srcSize: Vector2.all(32),
     );
 
     final unavailableSprite = await game.loadSprite(
-      'heart_half.png',
+      Images['HeartHalf']!,
       srcSize: Vector2.all(32),
     );
 

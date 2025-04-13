@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 
 class Apple extends SpriteComponent with HasGameReference<MyGame> {
@@ -17,7 +18,7 @@ class Apple extends SpriteComponent with HasGameReference<MyGame> {
 
   @override
   void onLoad() {
-    final appleImage = game.images.fromCache('apple.png');
+    final appleImage = game.images.fromCache(Images["Apple"]!);
     sprite = Sprite(appleImage);
     position = Vector2(
       (gridPosition.x * size.x) + xOffset + (size.x / 2),

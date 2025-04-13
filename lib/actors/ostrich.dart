@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
+import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
@@ -32,7 +33,7 @@ class Ostrich extends SpriteAnimationComponent
   @override
   void onLoad() {
     animation = SpriteAnimation.fromFrameData(
-      game.images.fromCache('OstrichRun.png'),
+      game.images.fromCache(Images["Ostrich"]!),
       SpriteAnimationData.sequenced(
         amount: 4,
         textureSize: Vector2.all(32),
