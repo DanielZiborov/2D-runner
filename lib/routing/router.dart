@@ -2,6 +2,7 @@ import 'package:flutter_2d_runner/screens/game_over_screen.dart';
 import 'package:flutter_2d_runner/screens/game_record_screen.dart';
 import 'package:flutter_2d_runner/screens/game_screen.dart';
 import 'package:flutter_2d_runner/screens/main_screen.dart';
+import 'package:flutter_2d_runner/screens/options_screen.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
@@ -21,6 +22,10 @@ final router = GoRouter(
     GoRoute(
       path: '/game_record',
       builder: (context, state) => const GameRecordScreen(),
+    ),
+    GoRoute(
+      path: '/options',
+      builder: (context, state) => const OptionsScreen(),
     ),
   ],
 );

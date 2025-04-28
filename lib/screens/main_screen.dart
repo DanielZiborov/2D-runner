@@ -24,7 +24,7 @@ class MainScreen extends StatelessWidget {
             ),
             MenuButton(
               onPressed: () {
-                context.push("/game_over");
+                context.push("/options");
               },
               title: "Options",
             ),
