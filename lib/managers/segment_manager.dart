@@ -1,5 +1,6 @@
 import 'package:flame/components.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
+import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/apple.dart';
 
@@ -14,6 +15,7 @@ final segments = [
   segment1,
   segment2,
   segment3,
+  segment4,
 ];
 
 final segment0 = [
@@ -32,4 +34,8 @@ final segment2 = [
 final segment3 = [
   Block(Vector2(5, 1), Falcon),
   Block(Vector2(9, 2), Apple),
+];
+
+final segment4 = [
+  Block(Vector2(4, 2), Question),
 ];

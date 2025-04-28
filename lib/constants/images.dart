@@ -7,4 +7,5 @@ Map<String,String> Images = {
   "Ground":"Ground.png",
   "Falcon":"falconAnim.png",
   "Background":"Background.png",
+  "Question":"question.png",
 };

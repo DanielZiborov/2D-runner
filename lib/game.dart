@@ -9,11 +9,11 @@ import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/indicators/hud.dart';
 import 'package:flutter_2d_runner/managers/segment_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
+import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/apple.dart';
 
 class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
-
   final BuildContext context;
   MyGame(this.context);
 
@@ -65,6 +65,11 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
           break;
         case Falcon:
           world.add(Falcon(
+            gridPosition: block.gridPosition,
+            xOffset: xOffset,
+          ));
+        case Question:
+          world.add(Question(
             gridPosition: block.gridPosition,
             xOffset: xOffset,
           ));

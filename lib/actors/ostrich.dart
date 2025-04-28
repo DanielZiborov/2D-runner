@@ -5,6 +5,7 @@ import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
+import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/apple.dart';
 import 'package:go_router/go_router.dart';
@@ -96,6 +97,10 @@ class Ostrich extends SpriteAnimationComponent
     if (other is Apple) {
       other.removeFromParent();
       game.applesCollected++;
+    }
+
+    if (other is Question) {
+      other.removeFromParent();
     }
 
     if (other is Falcon || other is Rock) {
