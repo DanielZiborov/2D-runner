@@ -45,7 +45,6 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
         gridPosition: Vector2(x.toDouble(), 0),
         xOffset: xOffset,
       ));
-      print("Земля по счёту: $x");
     }
 
     // Добавляем остальные объекты
@@ -80,12 +79,9 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   void initializeGame() {
     var segmentsToLoad = (size.x / 640).ceil();
-    print("Количество сегментов: $segmentsToLoad");
     segmentsToLoad = segmentsToLoad.clamp(0, segments.length);
-    print("Количество сегментов: $segmentsToLoad");
 
     for (var i = 0; i <= segmentsToLoad; i++) {
-      print("Сегмент сейчас: $i");
       loadGameSegments(i, (640 * i).toDouble());
     }
 

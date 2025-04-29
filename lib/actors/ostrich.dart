@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
@@ -8,6 +11,8 @@ import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/apple.dart';
+import 'package:flutter_2d_runner/quadratic_equation.dart';
+import 'package:flutter_2d_runner/screens/question_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Ostrich extends SpriteAnimationComponent
@@ -101,11 +106,37 @@ class Ostrich extends SpriteAnimationComponent
 
     if (other is Question) {
       other.removeFromParent();
+
+      // Ставим игру на паузу
+      game.paused = true;
+
+      //случайное уравнение
+      final quadraticEquation = QuadraticEquation();
+
+      // Показываем модальное окно с уравнением
+      showDialog(
+        context: game.context,
+        builder: (BuildContext context) {
+          return QuestionScreen(
+            equation: quadraticEquation.condition,
+            onSubmit: (answer) {
+              // Проверка ответа
+              if (quadraticEquation.checkAnswer(answer)) {
+                
+              } else {
+                // Неправильный ответ
+                log("Неправильный ответ!");
+              }
+              game.paused = false;
+            },
+          );
+        },
+      );
     }
 
-    if (other is Falcon || other is Rock) {
-      hit();
-    }
+    // if (other is Falcon || other is Rock) {
+    //   hit();
+    // }
 
     super.onCollision(intersectionPoints, other);
   }
