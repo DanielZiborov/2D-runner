@@ -4,6 +4,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
@@ -24,8 +25,8 @@ class Ostrich extends SpriteAnimationComponent
   final velocity = Vector2.zero();
   final moveSpeed = 200.0;
 
-  final double gravity = 45;
-  final double jumpSpeed = 1000;
+  final double gravity = 35;
+  final double jumpSpeed = 850;
   final double terminalVelocity = 150;
 
   bool hasJumped = false;
@@ -120,6 +121,10 @@ class Ostrich extends SpriteAnimationComponent
       //случайное уравнение
       final quadraticEquation = QuadraticEquation();
 
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+      ]);
+
       // Показываем модальное окно с уравнением
       showDialog(
         context: game.context,
@@ -136,6 +141,11 @@ class Ostrich extends SpriteAnimationComponent
                 log("Неправильный ответ!");
               }
               game.paused = false;
+
+              SystemChrome.setPreferredOrientations([
+                DeviceOrientation.landscapeLeft,
+                DeviceOrientation.landscapeRight,
+              ]);
             },
           );
         },

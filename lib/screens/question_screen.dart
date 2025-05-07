@@ -26,29 +26,31 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Решите уравнение'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(widget.equation),
-          TextField(
-            controller: _controller,
-            decoration: const InputDecoration(
-              labelText: 'Ваш ответ',
+    return SingleChildScrollView(
+      child: AlertDialog(
+        title: const Text('Решите уравнение'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(widget.equation),
+            TextField(
+              controller: _controller,
+              decoration: const InputDecoration(
+                labelText: 'Ваш ответ',
+              ),
+              inputFormatters: [
+                _DecimalInputFormatter(),
+              ],
             ),
-            inputFormatters: [
-              _DecimalInputFormatter(),
-            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: _submitAnswer,
+            child: const Text('Ок'),
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: _submitAnswer,
-          child: const Text('Ок'),
-        ),
-      ],
     );
   }
 }
