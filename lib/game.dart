@@ -12,6 +12,7 @@ import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
 import 'package:flutter_2d_runner/objects/apple.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   final BuildContext context;
@@ -26,8 +27,12 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
   int health = 3;
   int questionsCollected = 0;
 
+  int bestScore = 0;
+
   @override
   Future<void> onLoad() async {
+    await _loadBestScore();
+
     final fileNames = Images.values.toList();
 
     await images.loadAll(fileNames);
@@ -92,6 +97,23 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
     world.add(_ostrich);
 
     camera.viewport.add(Hud());
+  }
+
+  Future<void> _loadBestScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    bestScore = prefs.getInt('bestScore') ?? 0;
+  }
+
+  Future<void> saveBestScoreIfNeeded() async {
+    final currentScore = applesCollected + questionsCollected * 2;
+    if (currentScore > bestScore) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('bestScore', currentScore);
+    }
+  }
+
+  void endGame() async {
+    await saveBestScoreIfNeeded();
   }
 
   // Обработка касания экрана

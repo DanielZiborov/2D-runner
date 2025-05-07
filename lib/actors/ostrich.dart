@@ -135,9 +135,9 @@ class Ostrich extends SpriteAnimationComponent
       );
     }
 
-    // if (other is Falcon || other is Rock) {
-    //   hit();
-    // }
+    if (other is Falcon || other is Rock) {
+      hit();
+    }
 
     super.onCollision(intersectionPoints, other);
   }
@@ -147,6 +147,7 @@ class Ostrich extends SpriteAnimationComponent
       game.health--;
       hitByEnemy = true;
       if (game.health <= 0) {
+        game.endGame();
         Future.microtask(() {
           game.context.go('/game_over');
         });
