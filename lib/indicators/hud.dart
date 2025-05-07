@@ -2,7 +2,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
-import 'heart.dart';
+import 'package:flutter_2d_runner/indicators/heart.dart';
 
 class Hud extends PositionComponent with HasGameReference<MyGame> {
   Hud({
@@ -15,11 +15,13 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
     super.priority = 5,
   });
 
-  late TextComponent _scoreTextComponent;
+  late TextComponent _appleTextComponent;
+  late TextComponent _questionTextComponent;
 
   @override
   Future<void> onLoad() async {
-    _scoreTextComponent = TextComponent(
+    // Счётчик яблок
+    _appleTextComponent = TextComponent(
       text: '${game.applesCollected}',
       textRenderer: TextPaint(
         style: const TextStyle(
@@ -30,7 +32,7 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
       anchor: Anchor.center,
       position: Vector2(game.size.x - 60, 20),
     );
-    add(_scoreTextComponent);
+    add(_appleTextComponent);
 
     final appleSprite = await game.loadSprite(Images["Apple"]!);
     add(
@@ -42,11 +44,35 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
       ),
     );
 
-    const heartOffsetX = 40; // Отступ между сердцами (расстояние между ними)
-    final heartStartX = game.size.x - 120 - heartOffsetX; // Начальная позиция для сердец
+    // Счётчик решённых вопросов
+    _questionTextComponent = TextComponent(
+      text: '${game.questionsCollected}',
+      textRenderer: TextPaint(
+        style: const TextStyle(
+          fontSize: 32,
+          color: Color.fromRGBO(10, 10, 10, 1),
+        ),
+      ),
+      anchor: Anchor.center,
+      position: Vector2(game.size.x - 60, 60),
+    );
+    add(_questionTextComponent);
+
+    final questionSprite = await game.loadSprite(Images["Question"]!); // убедись, что есть картинка с ключом "Question"
+    add(
+      SpriteComponent(
+        sprite: questionSprite,
+        position: Vector2(game.size.x - 100, 60),
+        size: Vector2.all(40),
+        anchor: Anchor.center,
+      ),
+    );
+
+    // Отрисовка сердец
+    const heartOffsetX = 40;
+    final heartStartX = game.size.x - 120 - heartOffsetX;
 
     for (var i = 1; i <= game.health; i++) {
-
       final positionX = heartStartX - (i - 1) * heartOffsetX;
 
       await add(
@@ -61,6 +87,7 @@ class Hud extends PositionComponent with HasGameReference<MyGame> {
 
   @override
   void update(double dt) {
-    _scoreTextComponent.text = '${game.applesCollected}';
+    _appleTextComponent.text = '${game.applesCollected}';
+    _questionTextComponent.text = '${game.questionsCollected}';
   }
 }

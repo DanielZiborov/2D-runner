@@ -24,6 +24,7 @@ class MyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   int applesCollected = 0;
   int health = 3;
+  int questionsCollected = 0;
 
   @override
   Future<void> onLoad() async {
