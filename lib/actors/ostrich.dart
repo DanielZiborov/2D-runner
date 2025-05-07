@@ -122,7 +122,7 @@ class Ostrich extends SpriteAnimationComponent
             onSubmit: (answer) {
               // Проверка ответа
               if (quadraticEquation.checkAnswer(answer)) {
-                
+                 log("Правильный ответ!");
               } else {
                 // Неправильный ответ
                 log("Неправильный ответ!");

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class QuestionScreen extends StatefulWidget {
   final String equation;
@@ -33,8 +34,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
           Text(widget.equation),
           TextField(
             controller: _controller,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(labelText: 'Ваш ответ'),
+            decoration: const InputDecoration(
+              labelText: 'Ваш ответ',
+            ),
+            inputFormatters: [
+              _DecimalInputFormatter(),
+            ],
           ),
         ],
       ),
@@ -45,5 +50,33 @@ class _QuestionScreenState extends State<QuestionScreen> {
         ),
       ],
     );
+  }
+}
+
+class _DecimalInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    final input = newValue.text;
+
+    // Максимум два числа
+    final parts = input.split(' ');
+    if (parts.length > 2) return oldValue;
+
+    // Каждую часть проверяем отдельно
+    for (final part in parts) {
+      if (part.isEmpty) continue;
+
+      // Проверка на максимум 1 точку
+      if ('.'.allMatches(part).length > 1) return oldValue;
+
+      // Проверка на максимум 2 знака после точки
+      final split = part.split('.');
+      if (split.length == 2 && split[1].length > 2) return oldValue;
+    }
+
+    return newValue;
   }
 }
