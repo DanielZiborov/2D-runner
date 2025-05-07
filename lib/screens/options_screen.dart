@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/managers/audio_manager.dart';
 
 class OptionsScreen extends StatefulWidget {
   const OptionsScreen({super.key});
@@ -10,6 +11,13 @@ class OptionsScreen extends StatefulWidget {
 class _OptionsScreenState extends State<OptionsScreen> {
   double _soundValue = 0.5;
   double _musicValue = 0.5;
+
+  @override
+  void initState() {
+    _soundValue = AudioManager().soundVolume;
+    _musicValue = AudioManager().musicVolume;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +44,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
                       setState(() {
                         _soundValue = value;
                       });
+                      AudioManager().setSoundVolume(value);
                     },
                   ),
                 ),
@@ -62,6 +71,7 @@ class _OptionsScreenState extends State<OptionsScreen> {
                       setState(() {
                         _musicValue = value;
                       });
+                      AudioManager().setMusicVolume(value);
                     },
                   ),
                 ),

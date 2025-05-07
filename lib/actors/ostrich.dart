@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_2d_runner/actors/falcon.dart';
 import 'package:flutter_2d_runner/constants/images.dart';
 import 'package:flutter_2d_runner/game.dart';
+import 'package:flutter_2d_runner/managers/audio_manager.dart';
 import 'package:flutter_2d_runner/objects/ground.dart';
 import 'package:flutter_2d_runner/objects/question.dart';
 import 'package:flutter_2d_runner/objects/rock.dart';
@@ -100,11 +101,17 @@ class Ostrich extends SpriteAnimationComponent
     }
 
     if (other is Apple) {
+      Future(() {
+        AudioManager().playSound('collect');
+      });
       other.removeFromParent();
       game.applesCollected++;
     }
 
     if (other is Question) {
+      Future(() {
+        AudioManager().playSound('collect');
+      });
       other.removeFromParent();
 
       // Ставим игру на паузу
@@ -146,6 +153,11 @@ class Ostrich extends SpriteAnimationComponent
     if (!hitByEnemy) {
       game.health--;
       hitByEnemy = true;
+
+      Future(() {
+        AudioManager().playSound('hit');
+      });
+
       if (game.health <= 0) {
         game.endGame();
         Future.microtask(() {

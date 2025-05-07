@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_2d_runner/managers/audio_manager.dart';
 import 'package:flutter_2d_runner/widgets/menu_button.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,6 +8,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future(()=>AudioManager().playMusic());
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 232, 211, 137),
       body: Center(
